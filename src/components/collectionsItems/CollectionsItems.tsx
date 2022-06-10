@@ -31,10 +31,8 @@ const CollectionsItems = ({ products }: Props) => {
 	}
 
 	return (
-		<section className=' max-w-[1440px] px-2 sm:px-5 2xl:px-0 mx-auto'>
-			<div className='grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4'>
-				<Item products={products.data} />
-			</div>
+		<section className='grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4'>
+			<Item products={products.data} />
 		</section>
 	);
 };
