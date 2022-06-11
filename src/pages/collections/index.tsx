@@ -5,17 +5,21 @@ import Loading from '../../components/Loading';
 import PriceListBox from '../../components/PriceListBox';
 import SideFilter from '../../components/SideFilter';
 import { FilterContext } from '../../context/FilterContext';
+import { sortContext } from '../../context/SortContext';
 import useGetProducts from '../../hooks/useGetProducts';
 import filterProducts from '../../utils/filterProducts';
+import sortProducts from '../../utils/sortProducts';
 
 const Collections = () => {
 	const products = useGetProducts();
 	const { brandsSelected, categoriesSelected } = useContext(FilterContext);
+	const { sort } = useContext(sortContext);
 	if (products.isLoading) {
 		return <Loading />;
 	}
-	const data = filterProducts(brandsSelected, categoriesSelected, products.data);
-	console.log('data', data);
+	let data = filterProducts(brandsSelected, categoriesSelected, products.data);
+	// console.log('data', data);
+	data = sortProducts(data, sort);
 
 	return (
 		<section className='max-w-[1440px]  px-2 sm:px-5 2xl:px-0 mx-auto'>

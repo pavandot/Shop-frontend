@@ -8,7 +8,6 @@ import SortModal from './SortModal';
 const CollectionsFilter = () => {
 	const [isSortOpen, setIsSort] = useState(false);
 	const [isFilterOpen, setIsFilter] = useState(false);
-	const [sort, setSort] = useState('default');
 	const categories = useGetCategories();
 	const brands = useGetBrands();
 	const closeSortModal = () => {
@@ -33,7 +32,7 @@ const CollectionsFilter = () => {
 					</div>
 				</div>
 			</div>
-			<SortModal closeSortModal={closeSortModal} isSortOpen={isSortOpen} setSort={setSort} sort={sort} />
+			<SortModal closeSortModal={closeSortModal} isSortOpen={isSortOpen} />
 			<FilterModal closeFilterModal={closeFilterModal} isFilterOpen={isFilterOpen} />
 		</section>
 	);

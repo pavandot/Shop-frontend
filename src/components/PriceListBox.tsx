@@ -1,19 +1,24 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import { sortContext } from '../context/SortContext';
 const prices = [
 	{
 		name: 'Default',
+		value: 'default',
 	},
 	{
 		name: 'Low to High',
+		value: 'priceLowToHigh',
 	},
 	{
 		name: 'High to Low',
+		value: 'priceHighToLow',
 	},
 ];
 
 const PriceListBox = () => {
+	const { setSort } = useContext(sortContext);
 	const [selected, setSelected] = useState(prices[0]);
 
 	return (
@@ -39,6 +44,9 @@ const PriceListBox = () => {
 											}`
 										}
 										value={price}
+										onClick={() => {
+											setSort(price.value);
+										}}
 									>
 										{({ selected }) => (
 											<>

@@ -6,6 +6,7 @@ import { CookiesProvider } from 'react-cookie';
 
 const queryClient = new QueryClient();
 import FilterContextComponent from '../context/FilterContext';
+import SortContext from '../context/SortContext';
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 				<QueryClientProvider client={queryClient}>
 					<Navbar />
 					<FilterContextComponent>
-						<Component {...pageProps} />
+						<SortContext>
+							<Component {...pageProps} />
+						</SortContext>
 					</FilterContextComponent>
 				</QueryClientProvider>
 			</CookiesProvider>

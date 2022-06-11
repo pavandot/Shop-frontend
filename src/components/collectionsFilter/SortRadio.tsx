@@ -1,13 +1,14 @@
 import { RadioGroup } from '@headlessui/react';
+import { useContext } from 'react';
+import { sortContext } from '../../context/SortContext';
 import RadioButton from './RadioButton';
 
 type Props = {
-	sort: string;
-	setSort: (sort: string) => void;
 	closeSortModal: () => void;
 };
 const SortRadio = (props: Props) => {
-	const { sort, setSort, closeSortModal } = props;
+	const { sort, setSort } = useContext(sortContext);
+	const { closeSortModal } = props;
 	return (
 		<RadioGroup value={sort} onChange={setSort}>
 			<RadioGroup.Label className='sr-only'>Default</RadioGroup.Label>
@@ -19,7 +20,7 @@ const SortRadio = (props: Props) => {
 					</div>
 				)}
 			</RadioGroup.Option>
-			<RadioGroup.Option value='htol'>
+			<RadioGroup.Option value='priceHighToLow'>
 				{({ checked }) => (
 					<div className='flex items-center mt-3 space-x-2 ' onClick={() => closeSortModal()}>
 						<RadioButton checked={checked} />
@@ -27,7 +28,7 @@ const SortRadio = (props: Props) => {
 					</div>
 				)}
 			</RadioGroup.Option>
-			<RadioGroup.Option value='ltoh'>
+			<RadioGroup.Option value='priceLowToHigh'>
 				{({ checked }) => (
 					<div className='flex items-center mt-3 space-x-2 ' onClick={() => closeSortModal()}>
 						<RadioButton checked={checked} />

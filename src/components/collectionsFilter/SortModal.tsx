@@ -4,13 +4,11 @@ import SortRadio from './SortRadio';
 
 type Props = {
 	isSortOpen: boolean;
-	sort: string;
 	closeSortModal: () => void;
-	setSort: (sort: string) => void;
 };
 
 const SortModal = (props: Props) => {
-	const { isSortOpen, closeSortModal, sort, setSort } = props;
+	const { isSortOpen, closeSortModal } = props;
 	return (
 		<Transition appear show={isSortOpen} as={Fragment}>
 			<Dialog as='div' className='relative z-10' onClose={closeSortModal}>
@@ -40,7 +38,7 @@ const SortModal = (props: Props) => {
 								<Dialog.Title as='h3' className='text-lg font-medium leading-6 text-primary'>
 									Sort By
 								</Dialog.Title>
-								<SortRadio closeSortModal={closeSortModal} setSort={setSort} sort={sort} />
+								<SortRadio closeSortModal={closeSortModal} />
 							</Dialog.Panel>
 						</Transition.Child>
 					</div>
