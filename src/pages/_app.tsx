@@ -5,14 +5,16 @@ import Navbar from '../components/Navbar';
 import { CookiesProvider } from 'react-cookie';
 
 const queryClient = new QueryClient();
-
+import FilterContextComponent from '../context/FilterContext';
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<CookiesProvider>
 				<QueryClientProvider client={queryClient}>
 					<Navbar />
-					<Component {...pageProps} />
+					<FilterContextComponent>
+						<Component {...pageProps} />
+					</FilterContextComponent>
 				</QueryClientProvider>
 			</CookiesProvider>
 		</>

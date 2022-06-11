@@ -1,30 +1,17 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CloseIcon } from '../../assets/icons';
 import FilterSelection from './FilterSelection';
+import { FilterContext } from '../../context/FilterContext';
 type Props = {
 	isFilterOpen: boolean;
 	closeFilterModal: () => void;
 };
 
 const FilterModal = (props: Props) => {
-	const [brandsSelected, setBrandsSelected] = useState<string[]>([]);
-	const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
+	const { brandsSelected, categoriesSelected, handelBrandChange, handelCategoryChange } = useContext(FilterContext);
+
 	const { isFilterOpen, closeFilterModal } = props;
-	const handelBrandChange = (brand: string) => {
-		if (brandsSelected.includes(brand)) {
-			setBrandsSelected(brandsSelected.filter((b: string) => b !== brand));
-		} else {
-			setBrandsSelected([...brandsSelected, brand]);
-		}
-	};
-	const handelCategoryChange = (category: string) => {
-		if (categoriesSelected.includes(category)) {
-			setCategoriesSelected(categoriesSelected.filter((c: string) => c !== category));
-		} else {
-			setCategoriesSelected([...categoriesSelected, category]);
-		}
-	};
 
 	return (
 		<Transition appear show={isFilterOpen} as={Fragment}>

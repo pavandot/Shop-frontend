@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FilterContext } from '../context/FilterContext';
 import useGetBrands from '../hooks/useGetBrands';
 import useGetCategories from '../hooks/useGetCategories';
 
 const SideFilter = () => {
 	const { data: brands } = useGetBrands();
 	const { data: categories } = useGetCategories();
+	const { brandsSelected, categoriesSelected, handelBrandChange, handelCategoryChange } = useContext(FilterContext);
 
 	return (
 		<div className='  hidden sm:block   bg-white  w-[30%] md:w-[20%] lg:w-[15%]'>
@@ -21,11 +23,11 @@ const SideFilter = () => {
 										type='checkbox'
 										name='brand'
 										id={name}
-										// checked={brandsSelected.includes(name)}
+										checked={brandsSelected.includes(name)}
 										className=' accent-primary w-4 h-4'
-										// onChange={() => {
-										// 	handelBrandChange(name);
-										// }}
+										onChange={() => {
+											handelBrandChange(name);
+										}}
 									/>
 									<label htmlFor={name}>{name}</label>
 								</div>
@@ -44,11 +46,11 @@ const SideFilter = () => {
 											type='checkbox'
 											name='category'
 											id={name}
-											// checked={categoriesSelected.includes(name)}
+											checked={categoriesSelected.includes(name)}
 											className=' accent-primary w-4 h-4'
-											// onChange={() => {
-											// 	handelCategoryChange(name);
-											// }}
+											onChange={() => {
+												handelCategoryChange(name);
+											}}
 										/>
 										<label htmlFor={name}>{name}</label>
 									</div>

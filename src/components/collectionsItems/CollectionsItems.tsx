@@ -32,7 +32,7 @@ const CollectionsItems = ({ products }: Props) => {
 
 	return (
 		<section className='grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4'>
-			<Item products={products.data} />
+			<Item products={products} />
 		</section>
 	);
 };
