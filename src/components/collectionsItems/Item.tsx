@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
 import { Product } from './CollectionsItems';
 
-type Props = {
+interface Props  {
 	products: Product[];
 };
 

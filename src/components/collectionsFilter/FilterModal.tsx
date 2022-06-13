@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { CloseIcon } from '../../assets/icons';
 import FilterSelection from './FilterSelection';
 import { FilterContext } from '../../context/FilterContext';
-type Props = {
+interface Props  {
 	isFilterOpen: boolean;
 	closeFilterModal: () => void;
 };

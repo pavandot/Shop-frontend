@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import SortRadio from './SortRadio';
 
-type Props = {
+interface Props  {
 	isSortOpen: boolean;
 	closeSortModal: () => void;
 };

@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CloseIcon } from '../assets/icons';
 
-type Props = {
+interface Props  {
 	message: string;
 	open: boolean;
 };

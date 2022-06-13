@@ -1,4 +1,4 @@
-type props = {
+interface props  {
 	color?: string;
 	size?: string;
 };
