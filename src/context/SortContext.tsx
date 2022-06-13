@@ -1,9 +1,9 @@
 import { createContext, ReactNode, FunctionComponent, useState } from 'react';
 
-type Props = {
+interface Props  {
 	children: ReactNode;
 };
-type SortContextProps = {
+interface SortContextProps  {
 	sort: string;
 	setSort: (sort: string) => void;
 };

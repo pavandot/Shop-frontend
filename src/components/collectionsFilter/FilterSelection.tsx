@@ -1,6 +1,6 @@
 import { useQueryClient } from 'react-query';
 
-type Props = {
+interface Props  {
 	brandsSelected: string[];
 	categoriesSelected: string[];
 	handelBrandChange: (brand: string) => void;

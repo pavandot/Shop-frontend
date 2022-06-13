@@ -3,7 +3,7 @@ import { createContext, ReactNode, FunctionComponent, useState } from 'react';
 interface Props {
 	children: ReactNode;
 }
-type FilterContextProps = {
+interface FilterContextProps  {
 	brandsSelected: string[];
 	categoriesSelected: string[];
 	setBrandsSelected: (brandsSelected: string[]) => void;

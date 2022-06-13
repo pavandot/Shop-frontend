@@ -1,4 +1,4 @@
-type props = {
+interface props  {
 	checked: boolean;
 };
 const RadioButton = ({ checked }: props) => {

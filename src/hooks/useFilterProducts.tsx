@@ -2,7 +2,7 @@ import { useQueryClient } from 'react-query';
 
 import { Product } from '../components/collectionsItems/CollectionsItems';
 
-type Props = {
+interface Props  {
 	brandSelected: string[];
 	categorySelected: string[];
 };

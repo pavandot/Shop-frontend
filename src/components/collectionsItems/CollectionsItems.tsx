@@ -10,7 +10,7 @@ import Item from './Item';
 //     "amount": 2590,
 //     "__v": 0
 // }
-export type Product = {
+export interface Product  {
 	_id: string;
 	imageURL: string;
 	brand: string;

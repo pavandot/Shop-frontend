@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { sortContext } from '../../context/SortContext';
 import RadioButton from './RadioButton';
 
-type Props = {
+interface Props  {
 	closeSortModal: () => void;
 };
 const SortRadio = (props: Props) => {
