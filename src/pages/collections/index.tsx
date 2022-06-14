@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { dehydrate, QueryClient } from 'react-query';
 import CollectionsFilter from '../../components/collectionsFilter/CollectionsFilter';
 import CollectionsItems from '../../components/collectionsItems/CollectionsItems';
 import Loading from '../../components/Loading';
@@ -6,7 +7,9 @@ import PriceListBox from '../../components/PriceListBox';
 import SideFilter from '../../components/SideFilter';
 import { FilterContext } from '../../context/FilterContext';
 import { sortContext } from '../../context/SortContext';
-import useGetProducts from '../../hooks/useGetProducts';
+import { getBrands } from '../../hooks/useGetBrands';
+import { getCategories } from '../../hooks/useGetCategories';
+import useGetProducts, { getProducts } from '../../hooks/useGetProducts';
 import filterProducts from '../../utils/filterProducts';
 import sortProducts from '../../utils/sortProducts';
 
@@ -35,5 +38,18 @@ const Collections = () => {
 		</section>
 	);
 };
+
+export async function getStaticProps() {
+	const queryClient = new QueryClient();
+	await queryClient.prefetchQuery('products', getProducts);
+	await queryClient.prefetchQuery('Brands', getBrands);
+	await queryClient.prefetchQuery('categories', getCategories);
+	return {
+		props: {
+			dehydratedState: dehydrate(queryClient),
+		},
+		revalidate: 30,
+	};
+}
 
 export default Collections;
