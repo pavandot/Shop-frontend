@@ -25,13 +25,6 @@ type Props = {
 	products: Product[];
 };
 const CollectionsItems = ({ products }: Props) => {
-	// let testProducts;
-	// if (products.isSuccess) {
-	// 	testProducts = products.data.slice(0, 4);
-	// 	// console.log(testProducts);
-	// }
-	console.log(products.length < 0);
-
 	return (
 		<>
 			<section className='grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-4'>
