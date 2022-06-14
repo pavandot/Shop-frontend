@@ -1,20 +1,25 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import useGetProduct, { getProduct } from '../../hooks/useGetProduct';
-import Image from 'next/image';
-import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
 import { dehydrate, QueryClient } from 'react-query';
+import Image from 'next/image';
+import useGetProduct, { getProduct } from '../../hooks/useGetProduct';
+import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
 import { getProducts } from '../../hooks/useGetProducts';
 import { Product } from '../../components/collectionsItems/CollectionsItems';
+import Loading from '../../components/Loading';
+import ErrorModal from '../../components/ErrorModal';
+
 const sizeInNumber = [31, 32, 33, 34] as number[];
 const sizeInLetter = ['S', 'M', 'L', 'XL'] as string[];
 const Product = () => {
 	const [size, setSize] = useState<number | string>();
 	const router = useRouter();
 	const { pid } = router.query;
-	const { isError, error, data, isSuccess } = useGetProduct(pid);
-	// const paths = getAllStaticProps();
-	// console.log('paths', paths);
+	const { isError, error, data, isSuccess, isLoading } = useGetProduct(pid);
+
+	if (router.isFallback || isLoading) return <Loading />;
+
+	if (isError) return <ErrorModal message='Something went wrong' open={true} />;
 
 	return (
 		<>
