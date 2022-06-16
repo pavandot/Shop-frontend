@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { FilterContext } from '../context/FilterContext';
-import useGetBrands from '../hooks/collections/useGetBrands';
-import useGetCategories from '../hooks/collections/useGetCategories';
+import { FilterContext } from '../../context/FilterContext';
+import useGetBrands from '../../hooks/collections/useGetBrands';
+import useGetCategories from '../../hooks/collections/useGetCategories';
 
 const SideFilter = () => {
 	const { data: brands } = useGetBrands();
