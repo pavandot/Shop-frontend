@@ -36,9 +36,11 @@ const Navbar = () => {
 					<Link href='/cart'>
 						<div className=' relative cursor-pointer'>
 							<CartIcon />
-							<div className='flex absolute top-[-12px] right-[-10px] justify-center items-center bg-primary w-5 text-xs text-white h-5 rounded-full'>
-								<span>{isCartQuantity && cartQuantity}</span>
-							</div>
+							{token && (
+								<div className='flex absolute top-[-12px] right-[-10px] justify-center items-center bg-primary w-5 text-xs text-white h-5 rounded-full'>
+									<span>{isCartQuantity && cartQuantity}</span>
+								</div>
+							)}
 						</div>
 					</Link>
 					<Menu>
