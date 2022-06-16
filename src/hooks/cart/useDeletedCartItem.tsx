@@ -19,18 +19,25 @@ const useDeletedCartItem = () => {
 	return useMutation(deleteCartItem, {
 		onMutate: async (id: string) => {
 			await queryClient.cancelQueries('cart');
+			await queryClient.cancelQueries('cartQuantity');
 			const previousCartItems: CartItem[] | undefined = queryClient.getQueryData('cart');
+			const previousCartQuantity: number | undefined = queryClient.getQueryData('cartQuantity');
 			if (previousCartItems) {
 				const newCartItems = previousCartItems.filter((item) => item._id !== id);
 				queryClient.setQueryData('cart', newCartItems);
 			}
-			return previousCartItems;
+			if (previousCartQuantity) queryClient.setQueryData('cartQuantity', previousCartQuantity - 1);
+			return { previousCartItems, previousCartQuantity };
 		},
 		onError: (err, id, context) => {
-			queryClient.setQueryData('cart', context);
+			if (context) {
+				queryClient.setQueryData('cart', context.previousCartItems);
+				queryClient.setQueryData('cartQuantity', context.previousCartQuantity);
+			}
 		},
 		onSettled: () => {
 			queryClient.invalidateQueries('cart');
+			queryClient.invalidateQueries('cartQuantity');
 		},
 	});
 };

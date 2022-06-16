@@ -5,6 +5,7 @@ import Loading from '../components/Loading';
 import useGetCartItems from '../hooks/cart/useGetCartItems';
 import CartItem from '../components/cart/cartItem';
 import CartDetails from '../components/cart/cartDetails';
+import CartEmpty from '../components/cart/cartEmpty';
 export interface CartItem {
 	_id: string;
 	product: Product;
@@ -18,6 +19,7 @@ const Cart = () => {
 	const cartQuantity: number | undefined = queryClint.getQueryData('cartQuantity');
 	if (isLoading) return <Loading />;
 	if (isError) return <ErrorModal message='Something went wrong' open={true} />;
+	if (data?.cartItems.length === 0) return <CartEmpty />;
 	return (
 		<>
 			{isSuccess && data && (
