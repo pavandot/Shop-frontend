@@ -1,7 +1,7 @@
-import axios from '../axios';
+import axios from '../../axios';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Product } from '../components/collectionsItems/CollectionsItems';
+import { Product } from '../../components/collectionsItems/CollectionsItems';
 
 interface Response {
 	data: {
