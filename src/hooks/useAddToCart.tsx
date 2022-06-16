@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { CartItem } from '../pages/collections/[pid]';
 import axios from '../axios';
 interface AddTOCartProps {
@@ -6,6 +6,7 @@ interface AddTOCartProps {
 	token: string;
 }
 const useAddToCart = () => {
+	const queryClient = useQueryClient();
 	const addToCart = async ({ cartItem, token }: AddTOCartProps) => {
 		const config = {
 			method: 'post',
@@ -18,7 +19,15 @@ const useAddToCart = () => {
 		};
 		await axios(config);
 	};
-	return useMutation(addToCart);
+	return useMutation(addToCart, {
+		onSuccess: async () => {
+			await queryClient.cancelQueries('cartQuantity');
+
+			const previousCartQuantity: number | undefined = queryClient.getQueryData('cartQuantity');
+			if (previousCartQuantity) queryClient.setQueryData('cartQuantity', previousCartQuantity + 1);
+			queryClient.invalidateQueries('cartQuantity');
+		},
+	});
 };
 
 export default useAddToCart;
