@@ -1,11 +1,11 @@
-interface props  {
+interface props {
 	color?: string;
 	size?: string;
-};
+}
 const Spinner = ({ color, size }: props) => {
 	return (
 		<svg
-			className={`animate-spin -ml-1 ${size || 'h-5 w-5'} mr-3  ${color || 'text-white'}`}
+			className={`animate-spin -ml-1 ${size || 'h-5 w-5'}   ${color || 'text-white'}`}
 			xmlns='http://www.w3.org/2000/svg'
 			fill='none'
 			viewBox='0 0 24 24'
