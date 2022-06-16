@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { CartItem } from '../../pages/cart';
 import { CloseIcon } from '../../assets/icons';
 import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
-import useDeletedCartItem from '../../hooks/useDeletedCartItem';
+import useDeletedCartItem from '../../hooks/cart/useDeletedCartItem';
 import ErrorModal from '../ErrorModal';
 import { useQueryClient } from 'react-query';
 interface CartItemProps {

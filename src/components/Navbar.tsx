@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { LogoIcon, WishlistIcon, CartIcon, UserIcon } from '../assets/icons';
 import { Menu } from '@headlessui/react';
 import { useCookies } from 'react-cookie';
-import useCartQuantity from '../hooks/useCartQuantity';
+import useCartQuantity from '../hooks/cart/useCartQuantity';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 const Navbar = () => {

@@ -2,7 +2,7 @@ import { useQueryClient } from 'react-query';
 import { Product } from '../components/collectionsItems/CollectionsItems';
 import ErrorModal from '../components/ErrorModal';
 import Loading from '../components/Loading';
-import useGetCartItems from '../hooks/useGetCartItems';
+import useGetCartItems from '../hooks/cart/useGetCartItems';
 import CartItem from '../components/cart/cartItem';
 import CartDetails from '../components/cart/cartDetails';
 export interface CartItem {

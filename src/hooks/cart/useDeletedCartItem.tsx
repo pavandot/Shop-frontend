@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { AuthContext } from '../context/AuthContext';
-import axios from '../axios';
-import { CartItem } from '../pages/cart';
+import { AuthContext } from '../../context/AuthContext';
+import axios from '../../axios';
+import { CartItem } from '../../pages/cart';
 const useDeletedCartItem = () => {
 	const queryClient = useQueryClient();
 	const { token } = useContext(AuthContext);

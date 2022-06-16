@@ -1,5 +1,5 @@
 import { FilterIcon } from '../../assets/icons';
-import useGetProducts from '../../hooks/useGetProducts';
+import useGetProducts from '../../hooks/collections/useGetProducts';
 import Item from './Item';
 
 // {

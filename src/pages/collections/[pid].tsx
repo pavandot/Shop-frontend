@@ -2,15 +2,15 @@ import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import Image from 'next/image';
-import useGetProduct, { getProduct } from '../../hooks/useGetProduct';
+import useGetProduct, { getProduct } from '../../hooks/collections/useGetProduct';
 import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
-import { getProducts } from '../../hooks/useGetProducts';
+import { getProducts } from '../../hooks/collections/useGetProducts';
 import { Product } from '../../components/collectionsItems/CollectionsItems';
 import Loading from '../../components/Loading';
 import ErrorModal from '../../components/ErrorModal';
 import { useCookies } from 'react-cookie';
 import { AuthContext } from '../../context/AuthContext';
-import useAddToCart from '../../hooks/useAddToCart';
+import useAddToCart from '../../hooks/cart/useAddToCart';
 import Spinner from '../../components/Spinner';
 
 export interface CartItem {

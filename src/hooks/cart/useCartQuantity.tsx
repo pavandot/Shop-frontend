@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useQuery } from 'react-query';
-import { AuthContext } from '../context/AuthContext';
-import axios from '../axios';
+import { AuthContext } from '../../context/AuthContext';
+import axios from '../../axios';
 const useCartQuantity = () => {
 	const { token } = useContext(AuthContext);
 	const getCartQuantity = async () => {

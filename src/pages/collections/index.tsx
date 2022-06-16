@@ -7,9 +7,9 @@ import PriceListBox from '../../components/PriceListBox';
 import SideFilter from '../../components/SideFilter';
 import { FilterContext } from '../../context/FilterContext';
 import { sortContext } from '../../context/SortContext';
-import { getBrands } from '../../hooks/useGetBrands';
-import { getCategories } from '../../hooks/useGetCategories';
-import useGetProducts, { getProducts } from '../../hooks/useGetProducts';
+import { getBrands } from '../../hooks/collections/useGetBrands';
+import { getCategories } from '../../hooks/collections/useGetCategories';
+import useGetProducts, { getProducts } from '../../hooks/collections/useGetProducts';
 import filterProducts from '../../utils/filterProducts';
 import sortProducts from '../../utils/sortProducts';
 

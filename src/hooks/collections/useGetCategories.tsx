@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import axios from '../axios';
+import axios from '../../axios';
 export const getCategories = async () => {
 	const response = await axios.get('/categories');
 

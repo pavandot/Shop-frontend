@@ -1,7 +1,7 @@
 import { useState, Fragment } from 'react';
 import { SortIcon, FilterIcon } from '../../assets/icons';
-import useGetBrands from '../../hooks/useGetBrands';
-import useGetCategories from '../../hooks/useGetCategories';
+import useGetBrands from '../../hooks/collections/useGetBrands';
+import useGetCategories from '../../hooks/collections/useGetCategories';
 import ErrorModal from '../ErrorModal';
 import FilterModal from './FilterModal';
 import SortModal from './SortModal';

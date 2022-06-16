@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { CartItem } from '../pages/collections/[pid]';
-import axios from '../axios';
+import { CartItem } from '../../pages/collections/[pid]';
+import axios from '../../axios';
 interface AddTOCartProps {
 	cartItem: CartItem;
 	token: string;

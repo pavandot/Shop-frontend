@@ -1,11 +1,11 @@
 import { useQueryClient } from 'react-query';
 
-import { Product } from '../components/collectionsItems/CollectionsItems';
+import { Product } from '../../components/collectionsItems/CollectionsItems';
 
-interface Props  {
+interface Props {
 	brandSelected: string[];
 	categorySelected: string[];
-};
+}
 
 const useFilterProducts = ({ brandSelected, categorySelected }: Props) => {
 	const queryClient = useQueryClient();

@@ -1,6 +1,6 @@
 import { useCookies } from 'react-cookie';
 import { useMutation } from 'react-query';
-import axios from '../axios';
+import axios from '../../axios';
 const useSignUp = () => {
 	const [cookies, setCookie, removeCookie] = useCookies();
 	const SignUp = async (data: { userName: string; email: string; password: string }) => {
