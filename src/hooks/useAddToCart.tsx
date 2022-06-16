@@ -9,7 +9,7 @@ const useAddToCart = () => {
 	const addToCart = async ({ cartItem, token }: AddTOCartProps) => {
 		const config = {
 			method: 'post',
-			url: 'cart/',
+			url: '/cart',
 			headers: {
 				Authorization: `Bearer ${token}`,
 				'Content-Type': 'application/json',

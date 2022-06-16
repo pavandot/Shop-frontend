@@ -6,7 +6,7 @@ const useSignUp = () => {
 	const SignUp = async (data: { userName: string; email: string; password: string }) => {
 		const config = {
 			method: 'post',
-			url: 'user/register',
+			url: '/user/register',
 			headers: {
 				'Content-Type': 'application/json',
 			},
