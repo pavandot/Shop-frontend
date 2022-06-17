@@ -19,6 +19,7 @@ const useDeleteCart = () => {
 	return useMutation(deleteCart, {
 		onSuccess: () => {
 			queryClint.invalidateQueries('cart');
+			queryClint.invalidateQueries('cartQuantity');
 		},
 	});
 };
