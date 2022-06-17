@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import useDeleteCart from '../../hooks/cart/useDeleteCart';
 import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
 import Spinner from '../Spinner';
 
@@ -13,12 +11,13 @@ const finalAmount = (totalAmount: number) => {
 	return getFormattedCurrency(finalAmount);
 };
 
-const CartDetails = ({ totalAmount }: { totalAmount: number }) => {
-	const [isPurchased, setIsPurchased] = useState(false);
-	const { status, mutate, isLoading } = useDeleteCart();
-	const onPurchase = () => {
-		mutate();
-	};
+interface Props {
+	totalAmount: number;
+	onPurchase: () => void;
+	isLoading: boolean;
+}
+
+const CartDetails = ({ totalAmount, onPurchase, isLoading }: Props) => {
 	return (
 		<div className=' grow sm:max-w-[200px] mt-5 sm:mt-0 w-full sm:mx-8'>
 			<p className=' text-lg font-medium'>Price details</p>

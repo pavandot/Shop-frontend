@@ -6,6 +6,8 @@ import useGetCartItems from '../hooks/cart/useGetCartItems';
 import CartItem from '../components/cart/cartItem';
 import CartDetails from '../components/cart/cartDetails';
 import CartEmpty from '../components/cart/cartEmpty';
+import CartFinal from '../components/cart/cartFinal';
+import useDeleteCart from '../hooks/cart/useDeleteCart';
 export interface CartItem {
 	_id: string;
 	product: Product;
@@ -14,19 +16,24 @@ export interface CartItem {
 }
 
 const Cart = () => {
+	const { status, mutate, isLoading } = useDeleteCart();
 	const queryClint = useQueryClient();
-	const { data, isSuccess, isLoading, isError, error } = useGetCartItems();
+	const { data, isSuccess, isLoading: cartLoading, isError, error } = useGetCartItems();
 	const cartQuantity: number | undefined = queryClint.getQueryData('cartQuantity');
-	if (isLoading) return <Loading />;
+	if (cartLoading) return <Loading />;
 	if (isError) return <ErrorModal message='Something went wrong' open={true} />;
-	if (data?.cartItems.length === 0) return <CartEmpty />;
+	if (data?.cartItems.length === 0 && status !== 'success') return <CartEmpty />;
+	if (status === 'success') return <CartFinal />;
+	const onPurchase = () => {
+		mutate();
+	};
 	return (
 		<>
 			{isSuccess && data && (
 				<section className='max-w-3xl my-5  px-2 sm:px-5 2xl:px-0 mx-auto'>
 					<div className=' flex w-full justify-center flex-col sm:flex-row '>
 						<CartItem cartItems={data.cartItems} cartQuantity={cartQuantity || 0} />
-						<CartDetails totalAmount={data.totalAmount} />
+						<CartDetails totalAmount={data.totalAmount} isLoading={isLoading} onPurchase={onPurchase} />
 					</div>
 				</section>
 			)}
