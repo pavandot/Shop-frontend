@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 const Navbar = () => {
 	const [cookie, setCookie, removeCookie] = useCookies(['user']);
-	const { user, token } = useContext(AuthContext);
+	const { user, token, removeUser } = useContext(AuthContext);
 	const { data: cartQuantity, isSuccess: isCartQuantity } = useCartQuantity();
 	const signOutHandler = () => {
 		removeCookie('user');
@@ -105,7 +105,7 @@ const Navbar = () => {
 							{user && (
 								<div className='p-2'>
 									<Menu.Item>
-										<p className=' cursor-pointer' onClick={signOutHandler}>
+										<p className=' cursor-pointer' onClick={removeUser}>
 											Sign Out
 										</p>
 									</Menu.Item>
