@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { LogoIcon } from '../assets/icons';
 import Spinner from '../components/Spinner';
-import useSignIn from '../hooks/useSignIn';
+import useSignIn from '../hooks/user/useSignIn';
 const SignIn = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

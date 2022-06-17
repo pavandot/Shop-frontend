@@ -2,9 +2,13 @@ import Link from 'next/link';
 import { LogoIcon, WishlistIcon, CartIcon, UserIcon } from '../assets/icons';
 import { Menu } from '@headlessui/react';
 import { useCookies } from 'react-cookie';
+import useCartQuantity from '../hooks/cart/useCartQuantity';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 const Navbar = () => {
 	const [cookie, setCookie, removeCookie] = useCookies(['user']);
-	const user = cookie.user;
+	const { user, token } = useContext(AuthContext);
+	const { data: cartQuantity, isSuccess: isCartQuantity } = useCartQuantity();
 	const signOutHandler = () => {
 		removeCookie('user');
 	};
@@ -21,18 +25,22 @@ const Navbar = () => {
 					<Link href='/wishlist'>
 						<div className=' relative'>
 							<WishlistIcon />
-							<div className='flex absolute top-[-12px] right-[-10px] justify-center items-center bg-primary w-5 text-xs text-white h-5 rounded-full'>
-								<span>1</span>
-							</div>
+							{token && (
+								<div className='flex absolute top-[-12px] right-[-10px] justify-center items-center bg-primary w-5 text-xs text-white h-5 rounded-full'>
+									<span>1</span>
+								</div>
+							)}
 						</div>
 					</Link>
 
 					<Link href='/cart'>
-						<div className=' relative'>
+						<div className=' relative cursor-pointer'>
 							<CartIcon />
-							<div className='flex absolute top-[-12px] right-[-10px] justify-center items-center bg-primary w-5 text-xs text-white h-5 rounded-full'>
-								<span>1</span>
-							</div>
+							{token && isCartQuantity && (
+								<div className='flex absolute top-[-12px] right-[-10px] justify-center items-center bg-primary w-5 text-xs text-white h-5 rounded-full'>
+									<span>{isCartQuantity && cartQuantity}</span>
+								</div>
+							)}
 						</div>
 					</Link>
 					<Menu>

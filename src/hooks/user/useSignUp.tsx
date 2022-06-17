@@ -1,19 +1,19 @@
 import { useCookies } from 'react-cookie';
 import { useMutation } from 'react-query';
-import axios from '../axios';
-const useSignIn = () => {
+import axios from '../../axios';
+const useSignUp = () => {
 	const [cookies, setCookie, removeCookie] = useCookies();
-	const SignIn = async (data: { email: string; password: string }) => {
+	const SignUp = async (data: { userName: string; email: string; password: string }) => {
 		const config = {
 			method: 'post',
-			url: 'user/login',
+			url: '/user/register',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			data: data,
 		};
 		const response = await axios(config);
-		if (response.data.statusCode === 200) {
+		if (response.data.statusCode === 201) {
 			// expires in 3 day
 			const user = {
 				userName: response.data.userName,
@@ -24,7 +24,7 @@ const useSignIn = () => {
 			setCookie('user', user, { path: '/', expires: new Date(Date.now() + 2592000000) });
 		}
 	};
-	return useMutation(SignIn);
+	return useMutation(SignUp);
 };
 
-export default useSignIn;
+export default useSignUp;

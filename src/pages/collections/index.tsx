@@ -3,13 +3,13 @@ import { dehydrate, QueryClient } from 'react-query';
 import CollectionsFilter from '../../components/collectionsFilter/CollectionsFilter';
 import CollectionsItems from '../../components/collectionsItems/CollectionsItems';
 import Loading from '../../components/Loading';
-import PriceListBox from '../../components/PriceListBox';
-import SideFilter from '../../components/SideFilter';
+import PriceListBox from '../../components/collectionsItems/PriceListBox';
+import SideFilter from '../../components/collectionsItems/SideFilter';
 import { FilterContext } from '../../context/FilterContext';
 import { sortContext } from '../../context/SortContext';
-import { getBrands } from '../../hooks/useGetBrands';
-import { getCategories } from '../../hooks/useGetCategories';
-import useGetProducts, { getProducts } from '../../hooks/useGetProducts';
+import { getBrands } from '../../hooks/collections/useGetBrands';
+import { getCategories } from '../../hooks/collections/useGetCategories';
+import useGetProducts, { getProducts } from '../../hooks/collections/useGetProducts';
 import filterProducts from '../../utils/filterProducts';
 import sortProducts from '../../utils/sortProducts';
 

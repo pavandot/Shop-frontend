@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { LogoIcon } from '../assets/icons';
 import Spinner from '../components/Spinner';
-import useSignUp from '../hooks/useSignUp';
+import useSignUp from '../hooks/user/useSignUp';
 import { useRouter } from 'next/router';
 const SignUp = () => {
 	const [email, setEmail] = useState('');

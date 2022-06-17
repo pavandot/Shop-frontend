@@ -1,31 +1,64 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 import Image from 'next/image';
-import useGetProduct, { getProduct } from '../../hooks/useGetProduct';
+import useGetProduct, { getProduct } from '../../hooks/collections/useGetProduct';
 import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
-import { getProducts } from '../../hooks/useGetProducts';
+import { getProducts } from '../../hooks/collections/useGetProducts';
 import { Product } from '../../components/collectionsItems/CollectionsItems';
 import Loading from '../../components/Loading';
 import ErrorModal from '../../components/ErrorModal';
+import { useCookies } from 'react-cookie';
+import { AuthContext } from '../../context/AuthContext';
+import useAddToCart from '../../hooks/cart/useAddToCart';
+import Spinner from '../../components/Spinner';
 
-const sizeInNumber = [31, 32, 33, 34] as number[];
+export interface CartItem {
+	product: string | string[];
+	size: string;
+	quantity: number;
+}
+
+const sizeInNumber = ['31', '32', '33', '34'] as string[];
 const sizeInLetter = ['S', 'M', 'L', 'XL'] as string[];
 const Product = () => {
-	const [size, setSize] = useState<number | string>();
+	const { isAuthenticated, token } = useContext(AuthContext);
+	const [size, setSize] = useState<string>();
+	const [isNotSizeSelected, setIsNotSizeSelected] = useState<boolean>(false);
 	const router = useRouter();
 	const { pid } = router.query;
 	const { isError, error, data, isSuccess, isLoading } = useGetProduct(pid);
+	const { status, mutate } = useAddToCart();
+
+	const setSizeHandler = (size: string) => {
+		setSize(size);
+		setIsNotSizeSelected(false);
+	};
+	const addToCartHandler = () => {
+		if (!isAuthenticated) router.push('/signin');
+		else if (!size) setIsNotSizeSelected(true);
+		if (size && isAuthenticated && pid && token) {
+			const cartItem: CartItem = {
+				product: pid,
+				size,
+				quantity: 1,
+			};
+			mutate({
+				cartItem,
+				token,
+			});
+		}
+	};
 
 	if (router.isFallback || isLoading) return <Loading />;
 
-	if (isError) return <ErrorModal message='Something went wrong' open={true} />;
+	if (isError || status === 'error') return <ErrorModal message='Something went wrong' open={true} />;
 
 	return (
 		<>
 			{isSuccess && data && (
 				<section className='max-w-[1440px] mt-5  px-2 sm:px-5 2xl:px-0 mx-auto'>
-					<div className='p-2 flex flex-col sm:flex-row sm:justify-center sm:space-x-10 sm:max-w-3xl mx-auto'>
+					<div className='p-2 flex flex-col sm:flex-row sm:justify-center sm:space-x-10 sm:max-w-4xl lg:max-w-3xl mx-auto'>
 						<div className=' sm:w-[30%] lg:w-1/2'>
 							<Image src={data.imageURL} alt={data.name} width={330} height={412} layout='responsive' />
 						</div>
@@ -42,7 +75,7 @@ const Product = () => {
 								</div>
 								{data.category === 'Jeans' ? (
 									<div className='flex items-center space-x-5 mt-2'>
-										{sizeInNumber.map((sizeName: number, index: number) => {
+										{sizeInNumber.map((sizeName: string, index: number) => {
 											// console.log(sizeName, size);
 
 											return (
@@ -51,7 +84,7 @@ const Product = () => {
 														sizeName === size ? 'border-primary' : 'border-gray-300'
 													} flex justify-center items-center h-12  rounded-full border-2`}
 													key={index}
-													onClick={() => setSize(sizeName)}
+													onClick={() => setSizeHandler(sizeName)}
 												>
 													{sizeName}
 												</p>
@@ -67,7 +100,7 @@ const Product = () => {
 														sizeName === size ? 'border-primary' : 'border-gray-300'
 													} flex justify-center items-center h-12  rounded-full border-2`}
 													key={index}
-													onClick={() => setSize(sizeName)}
+													onClick={() => setSizeHandler(sizeName)}
 												>
 													{sizeName}
 												</p>
@@ -75,13 +108,17 @@ const Product = () => {
 										})}
 									</div>
 								)}
+								{isNotSizeSelected && <p className=' text-red-500 mt-1 px-1'>Please select size </p>}
 							</div>
 							<div className=' w-full mt-5  space-x-4 items-center  flex justify-between'>
-								<button className=' w-1/2 cursor-pointer px-10 rounded-md font-medium shadow text-primary border-[1px] border-primary py-3'>
+								<button className=' w-1/2 cursor-pointer  rounded-md font-medium shadow text-primary border-[1px] border-primary py-3'>
 									WishList
 								</button>
-								<button className=' w-1/2 cursor-pointer px-10 rounded-md font-medium shadow text-white bg-gradient-to-r from-secondary to-primary py-3'>
-									Add to Cart
+								<button
+									className=' w-1/2 cursor-pointer flex justify-center items-center rounded-md font-medium shadow text-white bg-gradient-to-r from-secondary to-primary py-3'
+									onClick={addToCartHandler}
+								>
+									{status === 'loading' ? <Spinner /> : 'Add to Cart'}
 								</button>
 							</div>
 						</div>
