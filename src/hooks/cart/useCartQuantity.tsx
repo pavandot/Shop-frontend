@@ -13,7 +13,8 @@ const useCartQuantity = () => {
 			},
 		};
 		const response = await axios(config);
-		return response.data?.totalQuantity;
+		const cartQuantity: number = response.data.totalQuantity;
+		return cartQuantity;
 	};
 	return useQuery(['cartQuantity'], getCartQuantity, {
 		enabled: token !== null,

@@ -14,6 +14,7 @@ interface AuthContextProps {
 	isAuthenticated: boolean;
 	user: User | null;
 	token: string | null;
+	removeUser: () => void;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -32,7 +33,14 @@ const AuthContextProvider: FunctionComponent<Props> = ({ children }) => {
 		}
 	}, [cookie.user]);
 
-	return <AuthContext.Provider value={{ isAuthenticated, user, token }}>{children}</AuthContext.Provider>;
+	const removeUser = () => {
+		removeCookie('user');
+		setIsAuthenticated(false);
+		setUser(null);
+		setToken(null);
+	};
+
+	return <AuthContext.Provider value={{ isAuthenticated, user, token, removeUser }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContextProvider;

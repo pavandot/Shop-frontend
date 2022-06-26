@@ -26,6 +26,7 @@ const useAddToCart = () => {
 			const previousCartQuantity: number | undefined = queryClient.getQueryData('cartQuantity');
 			if (previousCartQuantity) queryClient.setQueryData('cartQuantity', previousCartQuantity + 1);
 			queryClient.invalidateQueries('cartQuantity');
+			queryClient.invalidateQueries('cart');
 		},
 	});
 };

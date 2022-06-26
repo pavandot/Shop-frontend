@@ -74,9 +74,9 @@ export const UserIcon = () => (
 export const CheckIcon = () => (
 	<svg
 		xmlns='http://www.w3.org/2000/svg'
-		className='icon icon-tabler icon-tabler-check'
-		width='24'
-		height='24'
+		className='icon icon-tabler icon-tabler-check text-primary '
+		width='40'
+		height='40'
 		viewBox='0 0 24 24'
 		strokeWidth='1.5'
 		stroke='currentColor'

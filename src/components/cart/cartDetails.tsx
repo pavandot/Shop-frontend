@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
 import Spinner from '../Spinner';
 
@@ -12,14 +11,13 @@ const finalAmount = (totalAmount: number) => {
 	return getFormattedCurrency(finalAmount);
 };
 
-const CartDetails = ({ totalAmount }: { totalAmount: number }) => {
-	const [isPurchased, setIsPurchased] = useState(false);
-	const onPurchase = () => {
-		setIsPurchased(true);
-		setTimeout(() => {
-			setIsPurchased(false);
-		}, 2000);
-	};
+interface Props {
+	totalAmount: number;
+	onPurchase: () => void;
+	isLoading: boolean;
+}
+
+const CartDetails = ({ totalAmount, onPurchase, isLoading }: Props) => {
 	return (
 		<div className=' grow sm:max-w-[200px] mt-5 sm:mt-0 w-full sm:mx-8'>
 			<p className=' text-lg font-medium'>Price details</p>
@@ -46,7 +44,7 @@ const CartDetails = ({ totalAmount }: { totalAmount: number }) => {
 				className=' w-full mt-5 py-3 text-center flex justify-center items-center bg-gradient-to-r  from-secondary hover:from-primary to-primary hover:to-secondary rounded-md text-white font-medium'
 				onClick={onPurchase}
 			>
-				{isPurchased ? <Spinner /> : 'Place Order'}
+				{isLoading ? <Spinner /> : 'Place Order'}
 			</button>
 		</div>
 	);
