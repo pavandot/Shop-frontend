@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from '../components/Loading';
-import EmptyWishlist from '../components/wishlist/emptyWishlist';
+import EmptyWishlist from '../components/wishlist/EmptyWishlist';
 import WishlistItem from '../components/wishlist/WishlistItem';
 import useGetWishlist from '../hooks/wishlist/useGetWishlist';
 
