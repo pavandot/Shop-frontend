@@ -5,10 +5,16 @@ import { useCookies } from 'react-cookie';
 import useCartQuantity from '../hooks/cart/useCartQuantity';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useQueryClient } from 'react-query';
+import useGetWishlist from '../hooks/wishlist/useGetWishlist';
 const Navbar = () => {
+	const queryClient = useQueryClient();
 	const [cookie, setCookie, removeCookie] = useCookies(['user']);
 	const { user, token, removeUser } = useContext(AuthContext);
 	const { data: cartQuantity, isSuccess: isCartQuantity } = useCartQuantity();
+	const { data: wishlistQuantity, isSuccess: isWishlistQuantity } = useGetWishlist();
+	console.log(cartQuantity, wishlistQuantity);
+
 	const signOutHandler = () => {
 		removeCookie('user');
 	};
@@ -25,9 +31,9 @@ const Navbar = () => {
 					<Link href='/wishlist'>
 						<div className=' relative'>
 							<WishlistIcon />
-							{token && (
+							{token && wishlistQuantity && isWishlistQuantity && (
 								<div className='flex absolute top-[-12px] right-[-10px] justify-center items-center bg-primary w-5 text-xs text-white h-5 rounded-full'>
-									<span>1</span>
+									<span>{wishlistQuantity?.length || ''}</span>
 								</div>
 							)}
 						</div>
