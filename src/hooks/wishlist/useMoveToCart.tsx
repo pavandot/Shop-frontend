@@ -4,13 +4,14 @@ import axios from '../../axios';
 interface AddTOCartProps {
 	cartItem: CartItem;
 	token: string;
+	wishlistId: string;
 }
-const useAddToCart = () => {
+const useMoveToCart = () => {
 	const queryClient = useQueryClient();
-	const addToCart = async ({ cartItem, token }: AddTOCartProps) => {
+	const moveToCart = async ({ cartItem, token, wishlistId }: AddTOCartProps) => {
 		const config = {
 			method: 'post',
-			url: '/cart',
+			url: `/wishlist/${wishlistId}`,
 			headers: {
 				Authorization: `Bearer ${token}`,
 				'Content-Type': 'application/json',
@@ -19,17 +20,13 @@ const useAddToCart = () => {
 		};
 		await axios(config);
 	};
-	return useMutation(addToCart, {
+	return useMutation(moveToCart, {
 		onSuccess: async () => {
-			await queryClient.cancelQueries('cartQuantity');
-
-			const previousCartQuantity: number | undefined = queryClient.getQueryData('cartQuantity');
-			if (previousCartQuantity) queryClient.setQueryData('cartQuantity', previousCartQuantity + 1);
 			queryClient.invalidateQueries('cartQuantity');
-			queryClient.invalidateQueries('cart');
 			queryClient.invalidateQueries('wishlist');
+			queryClient.invalidateQueries('cart');
 		},
 	});
 };
 
-export default useAddToCart;
+export default useMoveToCart;

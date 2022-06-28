@@ -1,5 +1,6 @@
 import React from 'react';
 import Loading from '../components/Loading';
+import EmptyWishlist from '../components/wishlist/emptyWishlist';
 import WishlistItem from '../components/wishlist/WishlistItem';
 import useGetWishlist from '../hooks/wishlist/useGetWishlist';
 
@@ -8,6 +9,7 @@ const Wishlist = () => {
 	if (status === 'loading') {
 		return <Loading />;
 	}
+	if (wishlist?.length === 0) return <EmptyWishlist />;
 	return (
 		<>
 			{status === 'success' && wishlist && (

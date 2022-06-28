@@ -12,7 +12,7 @@ const useAddToWishlist = () => {
 
 		const config = {
 			method: 'post',
-			url: 'http://localhost:5000/wishlist',
+			url: 'wishlist',
 			headers: {
 				Authorization: 'Bearer ' + token,
 				'Content-Type': 'application/json',

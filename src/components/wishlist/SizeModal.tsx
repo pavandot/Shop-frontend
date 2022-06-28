@@ -4,6 +4,7 @@ import { CloseIcon } from '../../assets/icons';
 import { AuthContext } from '../../context/AuthContext';
 import useAddToCart from '../../hooks/cart/useAddToCart';
 import { WishlistInterface } from '../../hooks/wishlist/useGetWishlist';
+import useMoveToCart from '../../hooks/wishlist/useMoveToCart';
 import { CartItem } from '../../pages/collections/[pid]';
 import Spinner from '../Spinner';
 
@@ -23,7 +24,7 @@ const SizeModal = ({ isSortOpen, setIsSizeModalOpen, wishlistItem }: Props) => {
 		setIsSizeModalOpen(false);
 		setSize('');
 	};
-	const { status, mutate } = useAddToCart();
+	const { status, mutate } = useMoveToCart();
 	const addToCartHandler = () => {
 		if (size && token) {
 			const cartItem: CartItem = {
@@ -34,9 +35,11 @@ const SizeModal = ({ isSortOpen, setIsSizeModalOpen, wishlistItem }: Props) => {
 			mutate({
 				cartItem,
 				token,
+				wishlistId: wishlistItem._id,
 			});
 		}
 	};
+	if (status === 'success') setIsSizeModalOpen(false);
 	return (
 		<Transition appear show={isSortOpen} as={Fragment}>
 			<Dialog as='div' className='relative z-10' onClose={closeSizeModal}>

@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import axios from '../../axios';
 import { AuthContext } from '../../context/AuthContext';
+import { WishlistInterface } from './useGetWishlist';
 const useDeleteWishlist = () => {
 	const { token } = useContext(AuthContext);
 	const queryClient = useQueryClient();
@@ -18,7 +19,16 @@ const useDeleteWishlist = () => {
 		return response.data;
 	};
 	return useMutation(deleteWishlist, {
-		onSuccess: () => {
+		onMutate: (data) => {
+			queryClient.cancelQueries(['wishlist']);
+			const wishlist: WishlistInterface[] | undefined = queryClient.getQueryData('wishlist');
+
+			if (wishlist) {
+				const newWishlist = wishlist.filter((item) => item._id !== data);
+				queryClient.setQueryData('wishlist', newWishlist);
+			}
+		},
+		onSettled: () => {
 			queryClient.invalidateQueries('wishlist');
 		},
 	});

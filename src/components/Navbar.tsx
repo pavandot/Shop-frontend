@@ -13,7 +13,6 @@ const Navbar = () => {
 	const { user, token, removeUser } = useContext(AuthContext);
 	const { data: cartQuantity, isSuccess: isCartQuantity } = useCartQuantity();
 	const { data: wishlistQuantity, isSuccess: isWishlistQuantity } = useGetWishlist();
-	console.log(cartQuantity, wishlistQuantity);
 
 	const signOutHandler = () => {
 		removeCookie('user');
