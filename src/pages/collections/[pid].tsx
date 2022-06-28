@@ -12,6 +12,7 @@ import { useCookies } from 'react-cookie';
 import { AuthContext } from '../../context/AuthContext';
 import useAddToCart from '../../hooks/cart/useAddToCart';
 import Spinner from '../../components/Spinner';
+import useAddToWishlist from '../../hooks/wishlist/useAddToWishlist';
 
 export interface CartItem {
 	product: string | string[];
@@ -28,6 +29,7 @@ const Product = () => {
 	const router = useRouter();
 	const { pid } = router.query;
 	const { isError, error, data, isSuccess, isLoading } = useGetProduct(pid);
+	const { status: wishlistStatus, mutate: addToWishList } = useAddToWishlist();
 	const { status, mutate } = useAddToCart();
 
 	const setSizeHandler = (size: string) => {
@@ -50,9 +52,15 @@ const Product = () => {
 		}
 	};
 
+	const addToWishlistHandler = () => {
+		if (!isAuthenticated) router.push('/signin');
+		if (isAuthenticated && pid && token) {
+			addToWishList(pid);
+		}
+	};
 	if (router.isFallback || isLoading) return <Loading />;
 
-	if (isError || status === 'error') return <ErrorModal message='Something went wrong' open={true} />;
+	if (isError || status === 'error' || wishlistStatus === 'error') return <ErrorModal message='Something went wrong' open={true} />;
 
 	return (
 		<>
@@ -111,8 +119,11 @@ const Product = () => {
 								{isNotSizeSelected && <p className=' text-red-500 mt-1 px-1'>Please select size </p>}
 							</div>
 							<div className=' w-full mt-5  space-x-4 items-center  flex justify-between'>
-								<button className=' w-1/2 cursor-pointer  rounded-md font-medium shadow text-primary border-[1px] border-primary py-3'>
-									WishList
+								<button
+									className=' w-1/2 cursor-pointer flex justify-center items-center rounded-md font-medium shadow text-primary border-[1px] border-primary py-3'
+									onClick={addToWishlistHandler}
+								>
+									{wishlistStatus === 'loading' ? <Spinner color='text-primary' /> : 'WishList'}
 								</button>
 								<button
 									className=' w-1/2 cursor-pointer flex justify-center items-center rounded-md font-medium shadow text-white bg-gradient-to-r from-secondary to-primary py-3'
