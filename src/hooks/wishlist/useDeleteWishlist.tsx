@@ -8,7 +8,7 @@ const useDeleteWishlist = () => {
 	const deleteWishlist = async (product: string) => {
 		var config = {
 			method: 'delete',
-			url: `http://localhost:5000/wishlist/${product}`,
+			url: `wishlist/${product}`,
 			headers: {
 				Authorization: 'Bearer ' + token,
 			},

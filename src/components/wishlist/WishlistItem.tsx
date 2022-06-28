@@ -1,25 +1,35 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { CloseIcon } from '../../assets/icons';
 import useDeleteWishlist from '../../hooks/wishlist/useDeleteWishlist';
+import { WishlistInterface } from '../../hooks/wishlist/useGetWishlist';
 import { getFormattedCurrency } from '../../utils/getFormattedCurrency';
 import { Product } from '../collectionsItems/CollectionsItems';
+import SizeModal from './SizeModal';
 
 interface Props {
-	products: Product[];
+	wishlist: WishlistInterface[];
 }
 
 const WishlistItem = (props: Props) => {
-	const { products } = props;
+	const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
+	const [selectedProduct, setSelectedProduct] = useState<WishlistInterface>();
+	const { wishlist } = props;
 	const { status, mutate } = useDeleteWishlist();
+
 	const wishlistDeleteHandler = (productId: string) => {
 		mutate(productId);
 	};
+	const addToCartHandler = (wishlist: WishlistInterface) => {
+		setSelectedProduct(wishlist);
+		setIsSizeModalOpen(true);
+	};
 	return (
 		<>
-			{products &&
-				products.map((wishlist: any, index) => {
-					const { _id, imageURL, brand, category, name, amount } = wishlist.product;
+			{wishlist &&
+				wishlist.map((list: WishlistInterface, index) => {
+					const { _id, imageURL, brand, category, name, amount } = list.product;
 					const formattedAmount = getFormattedCurrency(amount);
 					return (
 						<div key={_id} className=' border-[1px] shadow overflow-hidden rounded text-sm w-full relative '>
@@ -34,12 +44,14 @@ const WishlistItem = (props: Props) => {
 								<p>Rs.{formattedAmount}</p>
 							</div>
 							<div className='p-2 border-t-2 text-center'>
-								<p className=' text-blue-500 font-semibold cursor-pointer '>Move to Cart</p>
+								<p className=' text-blue-500 font-semibold cursor-pointer ' onClick={() => addToCartHandler(list)}>
+									Move to Cart
+								</p>
 							</div>
 							<div className=' absolute top-2 right-2  '>
 								<div
 									className='bg-gray-200 rounded-full p-[1px] cursor-pointer'
-									onClick={() => wishlistDeleteHandler(wishlist['_id'])}
+									onClick={() => wishlistDeleteHandler(list['_id'])}
 								>
 									<CloseIcon />
 								</div>
@@ -47,6 +59,11 @@ const WishlistItem = (props: Props) => {
 						</div>
 					);
 				})}
+			<>
+				{selectedProduct && (
+					<SizeModal isSortOpen={isSizeModalOpen} setIsSizeModalOpen={setIsSizeModalOpen} wishlistItem={selectedProduct} />
+				)}
+			</>
 		</>
 	);
 };

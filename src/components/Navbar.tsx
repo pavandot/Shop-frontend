@@ -31,7 +31,7 @@ const Navbar = () => {
 					<Link href='/wishlist'>
 						<div className=' relative'>
 							<WishlistIcon />
-							{token && wishlistQuantity && isWishlistQuantity && (
+							{token && wishlistQuantity?.length !== 0 && isWishlistQuantity && (
 								<div className='flex absolute top-[-12px] right-[-10px] justify-center items-center bg-primary w-5 text-xs text-white h-5 rounded-full'>
 									<span>{wishlistQuantity?.length || ''}</span>
 								</div>
