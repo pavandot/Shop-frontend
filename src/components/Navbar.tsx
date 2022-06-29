@@ -28,7 +28,7 @@ const Navbar = () => {
 				</Link>
 				<div className='flex space-x-5 sm:space-x-6 items-center'>
 					<Link href='/wishlist'>
-						<div className=' relative'>
+						<div className=' relative cursor-pointer'>
 							<WishlistIcon />
 							{token && wishlistQuantity?.length !== 0 && isWishlistQuantity && (
 								<div className='flex absolute top-[-12px] right-[-10px] justify-center items-center bg-primary w-5 text-xs text-white h-5 rounded-full'>

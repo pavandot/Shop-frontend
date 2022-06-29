@@ -8,6 +8,9 @@ import CartDetails from '../components/cart/cartDetails';
 import CartEmpty from '../components/cart/cartEmpty';
 import CartFinal from '../components/cart/cartFinal';
 import useDeleteCart from '../hooks/cart/useDeleteCart';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import SigninRequest from '../components/SigninRequest';
 export interface CartItem {
 	_id: string;
 	product: Product;
@@ -18,12 +21,14 @@ export interface CartItem {
 const Cart = () => {
 	const { status, mutate, isLoading } = useDeleteCart();
 	const queryClint = useQueryClient();
+	const { isAuthenticated } = useContext(AuthContext);
 	const { data, isSuccess, isLoading: cartLoading, isError, error } = useGetCartItems();
 	const cartQuantity: number | undefined = queryClint.getQueryData('cartQuantity');
 	if (cartLoading) return <Loading />;
 	if (isError) return <ErrorModal message='Something went wrong' open={true} />;
 	if (data?.cartItems.length === 0 && status !== 'success') return <CartEmpty />;
 	if (status === 'success') return <CartFinal />;
+	if (!isAuthenticated) return <SigninRequest />;
 	const onPurchase = () => {
 		mutate();
 	};
