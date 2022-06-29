@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Loading from '../components/Loading';
+import SigninRequest from '../components/SigninRequest';
 import EmptyWishlist from '../components/wishlist/EmptyWishlist';
 import WishlistItem from '../components/wishlist/WishlistItem';
+import { AuthContext } from '../context/AuthContext';
 import useGetWishlist from '../hooks/wishlist/useGetWishlist';
 
 const Wishlist = () => {
-	const { status, data: wishlist } = useGetWishlist();
+	const { status, data: wishlist, isLoading } = useGetWishlist();
+	const { isAuthenticated } = useContext(AuthContext);
 	if (status === 'loading') {
 		return <Loading />;
 	}
-	if (wishlist?.length === 0) return <EmptyWishlist />;
+	if (wishlist?.length === 0 && !isLoading) return <EmptyWishlist />;
+	if (!isAuthenticated && status === 'success') return <SigninRequest />;
 	return (
 		<>
 			{status === 'success' && wishlist && (
