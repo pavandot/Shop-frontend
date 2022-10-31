@@ -21,7 +21,7 @@ const useSignUp = () => {
 				token: response.data.token,
 			};
 			removeCookie('user');
-			setCookie('user', user, { path: '/', expires: new Date(Date.now() + 2592000000) });
+			setCookie('user', user, { path: '/', maxAge: 86400 * 30 });
 		}
 	};
 	return useMutation(SignUp);
