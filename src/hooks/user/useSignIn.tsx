@@ -21,7 +21,7 @@ const useSignIn = () => {
 				token: response.data.token,
 			};
 			removeCookie('user');
-			setCookie('user', user, { path: '/', maxAge: 86400 * 30 }); // 30 days
+			setCookie('user', user, { path: '/', maxAge: 86400 * 3 }); // 30 days
 		}
 	};
 	return useMutation(SignIn);
