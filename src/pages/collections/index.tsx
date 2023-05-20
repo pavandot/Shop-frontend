@@ -22,7 +22,7 @@ const Collections = () => {
 		if (products.data) {
 			let data = filterProducts(brandsSelected, categoriesSelected, products.data);
 			data = sortProducts(data, sort);
-			setSortedData(data);
+			setSortedData([...data]);
 		}
 	}, [brandsSelected, categoriesSelected, products.data, sort]);
 	if (products.isLoading) {
